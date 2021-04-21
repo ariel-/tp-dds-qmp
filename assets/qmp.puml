@@ -4,22 +4,27 @@ skinparam backgroundColor transparent
 skinparam arrowFontColor royalblue
 
 class Prenda {
-    material
-    colorPrincipal
-    colorSecundario
-
     categoria()
 }
-class Tipo
-class Atuendo
+enum Material {
+    GABARDINA, NYLON, ALGODON, ...
+}
+enum Tipo {
+    REMERA_MANGA_LARGA, JEANS, ...
+    categoria()
+}
 enum Categoria {
     SUPERIOR, CALZADO, INFERIOR, ACCESORIO
 }
+class Color {
+    R
+    G
+    B
+}
+Prenda --> Color : colorPrimario
+Prenda --> Color : colorSecundario
+Prenda --> "1" Material
 Prenda ..> Categoria
 Prenda --> "1" Tipo
-Tipo --> "1" Categoria
-Atuendo --> "1" Prenda : parteSuperior
-Atuendo --> "1" Prenda : parteInferior
-Atuendo --> "1" Prenda : calzado
-Atuendo --> "*" Prenda : accesorios
+Tipo ..> Categoria
 @enduml
