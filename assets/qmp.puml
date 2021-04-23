@@ -9,22 +9,17 @@ class Prenda {
 enum Material {
     GABARDINA, NYLON, ALGODON, ...
 }
-enum Tipo {
-    REMERA_MANGA_LARGA, JEANS, ...
+class Tipo {
     categoria()
 }
 enum Categoria {
     SUPERIOR, CALZADO, INFERIOR, ACCESORIO
 }
-class Color {
-    R
-    G
-    B
-}
+class Color
 Prenda --> Color : colorPrimario
 Prenda --> Color : colorSecundario
 Prenda --> "1" Material
 Prenda ..> Categoria
 Prenda --> "1" Tipo
-Tipo ..> Categoria
+Tipo --> "1" Categoria
 @enduml
