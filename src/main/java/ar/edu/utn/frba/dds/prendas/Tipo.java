@@ -1,7 +1,7 @@
 package ar.edu.utn.frba.dds.prendas;
 
 // Es posible que tmb se pueda modelar a Tipo como una interface
-public class Tipo{
+public class Tipo {
   Categoria categoria;
 
   public Tipo(Categoria categoria) {
