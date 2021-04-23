@@ -8,11 +8,10 @@ public class Tipo {
     this.categoria = categoria;
   }
 
-  public Categoria categoria() {
+  public Categoria getCategoria() {
     return categoria;
   }
 }
-
 
 // public enum Tipo {
 // ZAPATILLA {

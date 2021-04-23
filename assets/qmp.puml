@@ -4,13 +4,13 @@ skinparam backgroundColor transparent
 skinparam arrowFontColor royalblue
 
 class Prenda {
-    categoria()
+    categoria() : Categoria
 }
 enum Material {
     GABARDINA, NYLON, ALGODON, ...
 }
 class Tipo {
-    categoria()
+    getCategoria()
 }
 enum Categoria {
     SUPERIOR, CALZADO, INFERIOR, ACCESORIO
