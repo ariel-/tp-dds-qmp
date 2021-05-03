@@ -3,23 +3,60 @@ left to right direction
 skinparam backgroundColor transparent
 skinparam arrowFontColor royalblue
 
+class Uniforme
 class Prenda {
+    colorPrimario : Color
+    colorSecundario : Color
     categoria() : Categoria
 }
-enum Material {
-    GABARDINA, NYLON, ALGODON, ...
+enum Trama {
+    LISA,
+    RAYADA,
+    LUNARES,
+    CUADROS,
+    ESTAMPADO
 }
-class Tipo {
-    getCategoria()
+enum Material {
+    GABARDINA,
+    NYLON,
+    ALGODON,
+    JEAN
+    ...
+}
+enum Tipo {
+    PANTALON,
+    REMERA,
+    ...
+
+    categoria() : Categoria
+    admiteMaterial() : boolean
 }
 enum Categoria {
-    SUPERIOR, CALZADO, INFERIOR, ACCESORIO
+    SUPERIOR,
+    CALZADO,
+    INFERIOR,
+    ACCESORIO
 }
-class Color
-Prenda --> Color : colorPrimario
-Prenda --> Color : colorSecundario
+class Borrador {
+    trama
+    material
+    tipo
+
+    crearPrenda() : Prenda
+}
+
+Borrador ..> Prenda
+
 Prenda --> "1" Material
-Prenda ..> Categoria
+Prenda --> "1" Trama
 Prenda --> "1" Tipo
+
+Prenda ..> Categoria
+
 Tipo --> "1" Categoria
+Tipo --> "*" Material
+
+Uniforme --> "1" Prenda : superior
+Uniforme --> "1" Prenda : inferior
+Uniforme --> "1" Prenda : calzado
 @enduml
