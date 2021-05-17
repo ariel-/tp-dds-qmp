@@ -1,4 +1,4 @@
-package ar.edu.utn.frba.dds.prendas;
+package domain.qmp.prendas;
 
 public enum Trama {
   LISA,
