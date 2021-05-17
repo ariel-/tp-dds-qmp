@@ -11,6 +11,7 @@ public class Borrador {
   private Trama trama;
   private Color colorPrimario;
   private Color colorSecundario;
+  private Integer temperaturaMaxima;
 
   public Borrador(Trama tramaPorDefecto) {
     this.tramaPorDefecto = tramaPorDefecto;
@@ -37,6 +38,11 @@ public class Borrador {
     return this;
   }
 
+  public Borrador setTemperaturaMaxima(Integer temperaturaMaxima) {
+    this.temperaturaMaxima = temperaturaMaxima;
+    return this;
+  }
+
   public Borrador setMaterial(Material material) {
     this.material = material;
     return this;
@@ -44,7 +50,7 @@ public class Borrador {
 
   public Prenda crearPrenda() {
     validarPrenda();
-    return new Prenda(material, tipo, trama, colorPrimario, colorSecundario);
+    return new Prenda(material, tipo, trama, colorPrimario, colorSecundario, temperaturaMaxima);
   }
 
   private void validarPrenda() {
