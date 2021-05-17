@@ -4,59 +4,114 @@ skinparam backgroundColor transparent
 skinparam arrowFontColor royalblue
 
 class Uniforme
-class Prenda {
-    colorPrimario : Color
-    colorSecundario : Color
-    categoria() : Categoria
-}
-enum Trama {
-    LISA,
-    RAYADA,
-    LUNARES,
-    CUADROS,
-    ESTAMPADO
-}
-enum Material {
-    GABARDINA,
-    NYLON,
-    ALGODON,
-    JEAN
-    ...
-}
-enum Tipo {
-    PANTALON,
-    REMERA,
-    ...
 
-    categoria() : Categoria
-    admiteMaterial() : boolean
+together {
+    class Prenda {
+        colorPrimario : Color
+        colorSecundario : Color
+        temperaturaMaxima
+        categoria() : Categoria
+    }
+
+    enum Trama {
+        LISA,
+        RAYADA,
+        LUNARES,
+        CUADROS,
+        ESTAMPADO
+    }
+
+    enum Material {
+        GABARDINA,
+        NYLON,
+        ALGODON,
+        JEAN
+        ...
+    }
+
+    enum Tipo {
+        PANTALON,
+        REMERA,
+        ...
+
+        categoria() : Categoria
+        admiteMaterial() : boolean
+    }
+
+    enum Categoria {
+        SUPERIOR,
+        CALZADO,
+        INFERIOR,
+        ACCESORIO
+    }
+
+    Prenda --> "1" Material
+    Prenda --> "1" Trama
+    Prenda --> "1" Tipo
+
+    Prenda ..> Categoria
+
+    Tipo --> "1" Categoria
+    Tipo --> "*" Material
 }
-enum Categoria {
-    SUPERIOR,
-    CALZADO,
-    INFERIOR,
-    ACCESORIO
-}
+
 class Borrador {
     trama
     material
     tipo
+    colorPrimario
+    colorSecundario
+    temperaturaMaxima
 
     crearPrenda() : Prenda
 }
 
+class GeneradorSugerencias {
+    generarSugerencias()
+}
+
+interface ServicioClima {
+    temperatura(ciudad, now)
+}
+
+class ServicioClimaAccuWeather {
+    implementation
+    temperatura(ciudad, now)
+}
+
+class "CacheResultados<K, V>" as CacheResultados_K_V {
+    get(K) : V
+    size()
+}
+
+class "CacheEntry<V>" as CacheEntry_V {
+    resultado : V
+    expiro(now) : boolean
+    get() : V
+}
+
+class AccuWeatherAPI {
+    getWeather(ciudad)
+}
+
 Borrador ..> Prenda
-
-Prenda --> "1" Material
-Prenda --> "1" Trama
-Prenda --> "1" Tipo
-
-Prenda ..> Categoria
-
-Tipo --> "1" Categoria
-Tipo --> "*" Material
 
 Uniforme --> "1" Prenda : superior
 Uniforme --> "1" Prenda : inferior
 Uniforme --> "1" Prenda : calzado
+
+Sugerencia --> "1" Prenda : parteSuperior
+Sugerencia --> "1" Prenda : parteInferior
+Sugerencia --> "1" Prenda : calzado
+Sugerencia --> "1" Prenda : accesorio
+
+GeneradorSugerencias --> ServicioClima
+GeneradorSugerencias ..> Sugerencia
+
+ServicioClimaAccuWeather ..|> ServicioClima
+ServicioClimaAccuWeather --> CacheResultados_K_V
+ServicioClimaAccuWeather --> AccuWeatherAPI
+
+CacheResultados_K_V --> "*" CacheEntry_V
+
 @enduml
