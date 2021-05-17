@@ -1,6 +1,6 @@
 package domain.qmp.prendas;
 
-import domain.qmp.exceptions.PrendaInvalida;
+import domain.qmp.exceptions.PrendaInvalidaException;
 
 import java.awt.*;
 
@@ -55,15 +55,15 @@ public class Borrador {
 
   private void validarPrenda() {
     if (tipo == null)
-      throw new PrendaInvalida("El tipo no puede ser nulo.");
+      throw new PrendaInvalidaException("El tipo no puede ser nulo.");
 
     if (material == null)
-      throw new PrendaInvalida("La prenda debe tener un material");
+      throw new PrendaInvalidaException("La prenda debe tener un material");
 
     if (!tipo.admiteMaterial(material))
-      throw new PrendaInvalida("El material no es admitido por el tipo de prenda");
+      throw new PrendaInvalidaException("El material no es admitido por el tipo de prenda");
 
     if (colorPrimario == null)
-      throw new PrendaInvalida("La prenda debe tener un color primario");
+      throw new PrendaInvalidaException("La prenda debe tener un color primario");
   }
 }
