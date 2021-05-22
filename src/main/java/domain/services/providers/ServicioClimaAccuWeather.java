@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.Map;
 
 public class ServicioClimaAccuWeather implements ServicioClima {
-  private final AccuWeatherAPI implementation;
+  private final AccuWeatherAPI api;
   private final CacheResultados<String, Integer> temperaturaCiudadCache;
 
-  public ServicioClimaAccuWeather() {
-    implementation = new AccuWeatherAPI();
+  public ServicioClimaAccuWeather(AccuWeatherAPI api) {
+    this.api = api;
     temperaturaCiudadCache = new CacheResultados<>(Duration.ofHours(3), ciudad -> {
-      List<Map<String, Object>> resultados = implementation.getWeather(ciudad);
+      List<Map<String, Object>> resultados = this.api.getWeather(ciudad);
       Map<String, Object> temperatureData = (Map<String, Object>) resultados.get(0).get("Temperature");
       String unit = (String) temperatureData.get("Unit");
       Float tempValue = (Float) temperatureData.get("Value");
