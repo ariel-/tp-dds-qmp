@@ -23,4 +23,4 @@ public enum Tipo {
     return materialesCompatibles.contains(material);
   }
 
-  }
+}

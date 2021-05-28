@@ -76,16 +76,15 @@ interface ServicioClima {
 }
 
 class ServicioClimaAccuWeather {
-    implementation
     temperatura(ciudad, now)
 }
 
-class "CacheResultados<K, V>" as CacheResultados_K_V {
+class "CacheResultados<K, V>" as CacheResultados {
     get(K) : V
     size()
 }
 
-class "CacheEntry<V>" as CacheEntry_V {
+class "CacheEntry<V>" as CacheEntry {
     resultado : V
     expiro(now) : boolean
     get() : V
@@ -102,13 +101,16 @@ Atuendo --> "1" Prenda : parteInferior
 Atuendo --> "1" Prenda : calzado
 Atuendo --> "1" Prenda : accesorio
 
-GeneradorAtuendos --> ServicioClima
+Guardarropas --> GeneradorAtuendos
+Guardarropas --> ServicioClima
+Guardarropas --> "*" Prenda
+
 GeneradorAtuendos ..> Atuendo
 
 ServicioClimaAccuWeather ..|> ServicioClima
-ServicioClimaAccuWeather --> CacheResultados_K_V
-ServicioClimaAccuWeather --> AccuWeatherAPI
+ServicioClimaAccuWeather --> CacheResultados
+ServicioClimaAccuWeather --> AccuWeatherAPI : api
 
-CacheResultados_K_V --> "*" CacheEntry_V
+CacheResultados --> "*" CacheEntry
 
 @enduml
