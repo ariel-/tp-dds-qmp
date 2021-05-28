@@ -1,7 +1,8 @@
 package domain.services;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public interface ServicioClima {
-  int temperatura(String ciudad, LocalDateTime now);
+  BigDecimal temperatura(String ciudad, LocalDateTime now);
 }

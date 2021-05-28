@@ -4,6 +4,7 @@ import domain.qmp.exceptions.UnidadDesconocidaException;
 import domain.services.ServicioClima;
 import domain.services.accuweather.AccuWeatherAPI;
 import domain.util.CacheResultados;
+import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public class ServicioClimaAccuWeather implements ServicioClima {
   private final AccuWeatherAPI api;
-  private final CacheResultados<String, Integer> temperaturaCiudadCache;
+  private final CacheResultados<String, BigDecimal> temperaturaCiudadCache;
 
   public ServicioClimaAccuWeather(AccuWeatherAPI api) {
     this.api = api;
@@ -20,26 +21,26 @@ public class ServicioClimaAccuWeather implements ServicioClima {
       Map<String, Object> temperatureData =
           (Map<String, Object>) resultados.get(0).get("Temperature");
       String unit = (String) temperatureData.get("Unit");
-      Float tempValue = (Float) temperatureData.get("Value");
+      Double tempValue = (Double) temperatureData.get("Value");
       return convertirACelsius(tempValue, unit);
     });
   }
 
-  private static Integer convertirACelsius(Float tempValue, String unit) {
+  private static BigDecimal convertirACelsius(Double tempValue, String unit) {
     switch (unit) {
       case "K":
-        return Math.round(tempValue - 273.15f);
+        return BigDecimal.valueOf(tempValue - 273.15f);
       case "F":
-        return Math.round((tempValue - 32.0f) * 5.0f / 9.0f);
+        return BigDecimal.valueOf((tempValue - 32.0f) * 5.0f / 9.0f);
       case "C":
-        return Math.round(tempValue);
+        return BigDecimal.valueOf(tempValue);
       default:
         throw new UnidadDesconocidaException("Unidad de temperatura desconocida: " + unit);
     }
   }
 
   @Override
-  public int temperatura(String ciudad, LocalDateTime now) {
+  public BigDecimal temperatura(String ciudad, LocalDateTime now) {
     return temperaturaCiudadCache.get(ciudad, now);
   }
 }
