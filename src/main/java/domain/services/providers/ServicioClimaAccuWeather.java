@@ -1,10 +1,9 @@
 package domain.services.providers;
 
 import domain.qmp.exceptions.UnidadDesconocidaException;
-import domain.services.accuweather.AccuWeatherAPI;
 import domain.services.ServicioClima;
+import domain.services.accuweather.AccuWeatherAPI;
 import domain.util.CacheResultados;
-
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,7 +17,8 @@ public class ServicioClimaAccuWeather implements ServicioClima {
     this.api = api;
     temperaturaCiudadCache = new CacheResultados<>(Duration.ofHours(3), ciudad -> {
       List<Map<String, Object>> resultados = this.api.getWeather(ciudad);
-      Map<String, Object> temperatureData = (Map<String, Object>) resultados.get(0).get("Temperature");
+      Map<String, Object> temperatureData =
+          (Map<String, Object>) resultados.get(0).get("Temperature");
       String unit = (String) temperatureData.get("Unit");
       Float tempValue = (Float) temperatureData.get("Value");
       return convertirACelsius(tempValue, unit);

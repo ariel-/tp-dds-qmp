@@ -1,8 +1,8 @@
 package domain.qmp.prendas;
 
-import java.awt.Color;
-
 import static java.util.Objects.requireNonNull;
+
+import java.awt.Color;
 
 public class Prenda {
   private final Material material;
@@ -12,7 +12,8 @@ public class Prenda {
   private final Color colorSecundario;
   private final Integer temperaturaMaxima;
 
-  public Prenda(Material material, Tipo tipo, Trama trama, Color colorPrimario, Color colorSecundario, Integer temperaturaMaxima) {
+  public Prenda(Material material, Tipo tipo, Trama trama, Color colorPrimario,
+                Color colorSecundario, Integer temperaturaMaxima) {
     this.material = requireNonNull(material, "La prenda requiere un material");
     this.tipo = requireNonNull(tipo, "La prenda requiere un tipo");
     this.trama = requireNonNull(trama, "La prenda requiere una trama");

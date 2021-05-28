@@ -1,16 +1,15 @@
 package domain.util;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public class CacheResultadosTests {
   private CacheResultados<String, Integer> cache;
-  private LocalDateTime ahora = LocalDateTime.of(2020, 1, 1, 20, 20);
+  private final LocalDateTime ahora = LocalDateTime.of(2020, 1, 1, 20, 20);
 
   @BeforeEach
   void inicializarNueva() {

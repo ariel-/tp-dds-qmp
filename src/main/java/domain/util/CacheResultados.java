@@ -11,7 +11,8 @@ public class CacheResultados<KeyType, ResultadoType> {
   private final TemporalAmount duration;
   private final Function<KeyType, ResultadoType> newResultSupplier;
 
-  public CacheResultados(TemporalAmount duration, Function<KeyType, ResultadoType> newResultSupplier) {
+  public CacheResultados(TemporalAmount duration,
+                         Function<KeyType, ResultadoType> newResultSupplier) {
     this.cache = new HashMap<>();
     this.duration = duration;
     this.newResultSupplier = newResultSupplier;
@@ -21,8 +22,9 @@ public class CacheResultados<KeyType, ResultadoType> {
     CacheEntry<ResultadoType> cacheEntry;
     if (cache.containsKey(key)) {
       cacheEntry = cache.get(key);
-      if (!cacheEntry.expiro(now))
+      if (!cacheEntry.expiro(now)) {
         return cacheEntry.get();
+      }
     }
     // si no la contiene o lo hizo pero ya expiro, recalculo!
     ResultadoType resultado = newResultSupplier.apply(key);
