@@ -3,8 +3,6 @@ left to right direction
 skinparam backgroundColor transparent
 skinparam arrowFontColor royalblue
 
-class Uniforme
-
 together {
     class Prenda {
         colorPrimario : Color
@@ -66,8 +64,11 @@ class Borrador {
     crearPrenda() : Prenda
 }
 
-class GeneradorSugerencias {
-    generarSugerencias()
+interface GeneradorAtuendos {
+    generarSugerencias() : Collection<Atuendo>
+}
+
+class Atuendo {
 }
 
 interface ServicioClima {
@@ -96,17 +97,13 @@ class AccuWeatherAPI {
 
 Borrador ..> Prenda
 
-Uniforme --> "1" Prenda : superior
-Uniforme --> "1" Prenda : inferior
-Uniforme --> "1" Prenda : calzado
+Atuendo --> "1" Prenda : parteSuperior
+Atuendo --> "1" Prenda : parteInferior
+Atuendo --> "1" Prenda : calzado
+Atuendo --> "1" Prenda : accesorio
 
-Sugerencia --> "1" Prenda : parteSuperior
-Sugerencia --> "1" Prenda : parteInferior
-Sugerencia --> "1" Prenda : calzado
-Sugerencia --> "1" Prenda : accesorio
-
-GeneradorSugerencias --> ServicioClima
-GeneradorSugerencias ..> Sugerencia
+GeneradorAtuendos --> ServicioClima
+GeneradorAtuendos ..> Atuendo
 
 ServicioClimaAccuWeather ..|> ServicioClima
 ServicioClimaAccuWeather --> CacheResultados_K_V

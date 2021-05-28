@@ -1,16 +1,18 @@
-package domain.qmp.uniformes;
+package domain.qmp.atuendos;
 
 import domain.qmp.prendas.Prenda;
 
-public class Uniforme {
+public class Atuendo {
   private final Prenda parteSuperior;
   private final Prenda parteInferior;
   private final Prenda calzado;
+  private final Prenda accesorio;
 
-  public Uniforme(Prenda parteSuperior, Prenda parteInferior, Prenda calzado) {
+  public Atuendo(Prenda parteSuperior, Prenda parteInferior, Prenda calzado, Prenda accesorio) {
     this.parteSuperior = parteSuperior;
     this.parteInferior = parteInferior;
     this.calzado = calzado;
+    this.accesorio = accesorio;
   }
 
   public Prenda getParteSuperior() {
@@ -23,5 +25,9 @@ public class Uniforme {
 
   public Prenda getCalzado() {
     return calzado;
+  }
+
+  public Prenda getAccesorio() {
+    return accesorio;
   }
 }
