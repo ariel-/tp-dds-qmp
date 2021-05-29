@@ -1,5 +1,7 @@
 package domain.qmp.atuendos;
 
+import domain.qmp.exceptions.CategoriaNoCoincideException;
+import domain.qmp.prendas.Categoria;
 import domain.qmp.prendas.Prenda;
 
 public class Atuendo {
@@ -9,6 +11,8 @@ public class Atuendo {
   private final Prenda accesorio;
 
   public Atuendo(Prenda parteSuperior, Prenda parteInferior, Prenda calzado, Prenda accesorio) {
+    validarAtuendo(parteSuperior, parteInferior, calzado, accesorio);
+
     this.parteSuperior = parteSuperior;
     this.parteInferior = parteInferior;
     this.calzado = calzado;
@@ -29,5 +33,20 @@ public class Atuendo {
 
   public Prenda getAccesorio() {
     return accesorio;
+  }
+
+  private void validarAtuendo(Prenda parteSuperior, Prenda parteInferior, Prenda calzado,
+                              Prenda accesorio) {
+    validarCategoria(Categoria.SUPERIOR, parteSuperior);
+    validarCategoria(Categoria.INFERIOR, parteInferior);
+    validarCategoria(Categoria.CALZADO, calzado);
+    validarCategoria(Categoria.ACCESORIO, accesorio);
+  }
+
+  private void validarCategoria(Categoria cat, Prenda prenda) {
+    if (prenda != null && cat != prenda.categoria()) {
+      throw new CategoriaNoCoincideException(
+          "La prenda no es de la categoria esperada " + cat.toString());
+    }
   }
 }

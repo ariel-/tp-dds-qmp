@@ -1,7 +1,8 @@
 package domain.qmp.atuendos;
 
-import java.util.Collection;
+import domain.qmp.prendas.Prenda;
+import java.util.List;
 
 public interface GeneradorAtuendos {
-  Collection<Atuendo> generarSugerencias();
+  Atuendo generarAtuendosDesde(List<Prenda> prendas);
 }

@@ -22,7 +22,7 @@ public class Prenda {
     this.temperaturaMaxima = temperaturaMaxima;
   }
 
-  Categoria categoria() {
+  public Categoria categoria() {
     return this.tipo.getCategoria();
   }
 }
