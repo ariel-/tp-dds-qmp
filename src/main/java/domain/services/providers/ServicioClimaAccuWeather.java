@@ -21,7 +21,7 @@ public class ServicioClimaAccuWeather implements ServicioClima {
       Map<String, Object> temperatureData =
           (Map<String, Object>) resultados.get(0).get("Temperature");
       String unit = (String) temperatureData.get("Unit");
-      Double tempValue = (Double) temperatureData.get("Value");
+      Double tempValue = ((Number) temperatureData.get("Value")).doubleValue();
       return convertirACelsius(tempValue, unit);
     });
   }

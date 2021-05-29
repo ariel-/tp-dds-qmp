@@ -22,7 +22,7 @@ public class CacheEntryTests {
 
   @Test
   void unaEntryNoEstaExpiradaSiNoPasoSuHoraDeExpiracion() {
-    assertFalse(entry.expiro(moonLanding.plusSeconds(1)));
+    assertFalse(entry.expiro(moonLanding.minusSeconds(1)));
   }
 
   @Test

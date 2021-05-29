@@ -65,7 +65,7 @@ class Borrador {
 }
 
 interface GeneradorAtuendos {
-    generarAtuendosDesde(Collection<Prenda>) : Atuendo
+    generarAtuendosDesde(List<Prenda>) : Atuendo
 }
 
 class Atuendo {

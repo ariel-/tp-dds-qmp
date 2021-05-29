@@ -14,7 +14,7 @@ public class CacheEntry<ResultadoType> {
   public boolean expiro(LocalDateTime now) {
     // no antes de = ahora o luego
     // es decir si mi fecha de expiración es despues o igual a ahora, ya expiré
-    return !this.expiration.isBefore(now);
+    return !now.isBefore(expiration);
   }
 
   public ResultadoType get() {
