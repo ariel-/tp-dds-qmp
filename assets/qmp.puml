@@ -65,7 +65,7 @@ class Borrador {
 }
 
 interface GeneradorAtuendos {
-    generarAtuendosDesde(List<Prenda>) : Atuendo
+    generarAtuendoDesde(List<Prenda>) : Atuendo
 }
 
 class Atuendo {
@@ -101,10 +101,6 @@ Atuendo --> "1" Prenda : parteInferior
 Atuendo --> "1" Prenda : calzado
 Atuendo --> "1" Prenda : accesorio
 
-Guardarropa --> GeneradorAtuendos
-Guardarropa --> ServicioClima
-Guardarropa --> "*" Prenda
-
 GeneradorAtuendos ..> Prenda
 GeneradorAtuendos ..> Atuendo
 
@@ -114,4 +110,62 @@ ServicioClimaAccuWeather --> AccuWeatherAPI : api
 
 CacheResultados --> "*" CacheEntry
 
+class Persona {
+    guardarropas : Set<Guardarropa>
+    propuestas : Set<Propuesta>
+
+    agregarGuardarropa()
+    quitarGuardarropa()
+    getPropuestasPendientes() : List<Propuesta>
+    aceptarPropuesta(Propuesta)
+    rechazarPropuesta(Propuesta)
+}
+
+' Command pattern :)
+together {
+    abstract class Propuesta {
+        aplicada : boolean
+
+        {abstract} apply()
+        {abstract} undo()
+
+        aceptarPropuesta()
+        deshacerPropuesta()
+        estaPendiente()
+    }
+
+    class PropuestaAgregar {
+        apply()
+        undo()
+    }
+
+    class PropuestaEliminar {
+        apply()
+        undo()
+    }
+}
+
+PropuestaAgregar --|> Propuesta
+PropuestaAgregar --> Prenda
+PropuestaAgregar --> Guardarropa
+
+PropuestaEliminar --|> Propuesta
+PropuestaEliminar --> Prenda
+PropuestaEliminar --> Guardarropa
+
+class Guardarropa {
+    nombre : String
+    prendas : List<Prenda>
+
+    agregarPrenda(Prenda)
+    sugerirAtuendo() : Atuendo
+}
+
+Guardarropa --> GeneradorAtuendos
+Guardarropa --> ServicioClima
+Guardarropa --> "*" Prenda
+Guardarropa ..> Atuendo
+
+Persona --> "*" Propuesta
+Persona --> "*" Guardarropa
 @enduml

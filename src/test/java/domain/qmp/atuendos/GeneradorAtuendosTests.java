@@ -20,7 +20,7 @@ public class GeneradorAtuendosTests {
   @BeforeEach
   void init() {
     generadorAtuendos = mock(GeneradorAtuendos.class);
-    when(generadorAtuendos.generarAtuendosDesde(any()))
+    when(generadorAtuendos.generarAtuendoDesde(any()))
         .thenAnswer(invocation ->
                     {
                       List<Prenda> prendas = invocation.getArgument(0);
@@ -50,7 +50,7 @@ public class GeneradorAtuendosTests {
 
   @Test
   void unGeneradorGenera() {
-    Atuendo atuendo = generadorAtuendos.generarAtuendosDesde(prendas);
+    Atuendo atuendo = generadorAtuendos.generarAtuendoDesde(prendas);
     assertEquals(superior, atuendo.getParteSuperior());
     assertEquals(inferior, atuendo.getParteInferior());
     assertEquals(calzado, atuendo.getCalzado());

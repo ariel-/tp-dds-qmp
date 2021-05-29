@@ -2,6 +2,7 @@ package domain.qmp.prendas;
 
 import domain.qmp.exceptions.PrendaInvalidaException;
 import java.awt.Color;
+import java.math.BigDecimal;
 
 public class Borrador {
   private final Trama tramaPorDefecto;
@@ -10,7 +11,7 @@ public class Borrador {
   private Trama trama;
   private Color colorPrimario;
   private Color colorSecundario;
-  private Integer temperaturaMaxima;
+  private BigDecimal temperaturaMaxima;
 
   public Borrador(Trama tramaPorDefecto) {
     this.tramaPorDefecto = tramaPorDefecto;
@@ -37,7 +38,7 @@ public class Borrador {
     return this;
   }
 
-  public Borrador setTemperaturaMaxima(Integer temperaturaMaxima) {
+  public Borrador setTemperaturaMaxima(BigDecimal temperaturaMaxima) {
     this.temperaturaMaxima = temperaturaMaxima;
     return this;
   }
