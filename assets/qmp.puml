@@ -98,23 +98,40 @@ package "Clima" #FFFB96/01CDFE {
 
     interface ServicioClima {
         estadoClimatico(ciudad, now) : EstadoClima
+        agregarSuscriptor(SuscriptorClima)
+        removerSuscriptor(SuscriptorClima)
+    }
+
+    interface SuscriptorClima {
+        cambioCondiciones(EstadoClima)
     }
 
     EstadoClima --> "*" AlertaMeteorologico
 
     ServicioClima ..> EstadoClima
+    ServicioClima --> "*" SuscriptorClima
+
+    SuscriptorClima .left.> EstadoClima
 }
 
 package "EndUser" #FCAA58|FFFB96 {
     class Persona {
         guardarropas : Set<Guardarropa>
         propuestas : Set<Propuesta>
+        notificaciones
 
         agregarGuardarropa()
         quitarGuardarropa()
         getPropuestasPendientes() : List<Propuesta>
         aceptarPropuesta(Propuesta)
         rechazarPropuesta(Propuesta)
+        setNotificacionesMail()
+        setNotificacionesPush()
+    }
+
+    class Notificaciones {
+        registrar()
+        desregistrar()
     }
 
     ' Command pattern :)
@@ -141,7 +158,11 @@ package "EndUser" #FCAA58|FFFB96 {
     Guardarropa --> "*" Prenda
     Guardarropa ..> Atuendo
 
+    Persona --> Notificaciones
     Persona --> "*" Propuesta
     Persona --> "*" Guardarropa
+
+    Notificaciones --> ServicioClima
+    Notificaciones --> "*" SuscriptorClima
 }
 @enduml
