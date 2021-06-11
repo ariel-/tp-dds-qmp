@@ -20,13 +20,10 @@ public class GeneradorAtuendosTests {
   @BeforeEach
   void init() {
     generadorAtuendos = mock(GeneradorAtuendos.class);
-    when(generadorAtuendos.generarAtuendoDesde(any()))
-        .thenAnswer(invocation ->
-                    {
-                      List<Prenda> prendas = invocation.getArgument(0);
-                      return new Atuendo(prendas.get(0), prendas.get(1), prendas.get(2),
-                                         prendas.get(3));
-                    });
+    when(generadorAtuendos.generarAtuendoDesde(any())).thenAnswer(invocation -> {
+      List<Prenda> prendas = invocation.getArgument(0);
+      return new Atuendo(prendas.get(0), prendas.get(1), prendas.get(2), prendas.get(3));
+    });
 
     prendas = new ArrayList<>();
 

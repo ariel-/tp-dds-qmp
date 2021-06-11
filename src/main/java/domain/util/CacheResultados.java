@@ -12,7 +12,7 @@ public class CacheResultados<KeyType, ResultadoType> {
   private final Function<KeyType, ResultadoType> newResultSupplier;
 
   public CacheResultados(TemporalAmount duration,
-                         Function<KeyType, ResultadoType> newResultSupplier) {
+      Function<KeyType, ResultadoType> newResultSupplier) {
     this.cache = new HashMap<>();
     this.duration = duration;
     this.newResultSupplier = newResultSupplier;

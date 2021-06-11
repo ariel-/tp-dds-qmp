@@ -9,6 +9,7 @@
 3. Parte 3 (no)
 4. [Parte 4](https://docs.google.com/document/d/1sy9S9EeIQr8fhatKnfTCgOfjVniJDu2viI-Av0gn0xY)
 5. [Parte 5](https://docs.google.com/document/d/1wS622pMwZrDK9ilL_hEt5bBE04vKUKZILx8cIQ-aQzU)
+6. [Parte 6](https://docs.google.com/document/d/1NxqhJj70kt-_4aw-CawlISdJZyedzoOcLAVJAZVZISE)
 
 ## Decisiones Tomadas
 * ServicioClima es una interfaz interna, _adapta_ a los posibles proveedores de clima. Esto resuelve el requerimiento de poder agregar nuevos proveedores

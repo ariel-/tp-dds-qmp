@@ -8,8 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CacheResultadosTests {
-  private CacheResultados<String, Integer> cache;
   private final LocalDateTime ahora = LocalDateTime.of(2020, 1, 1, 20, 20);
+  private CacheResultados<String, Integer> cache;
 
   @BeforeEach
   void inicializarNueva() {

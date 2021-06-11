@@ -28,7 +28,7 @@ public class PropuestaAgregarTests {
 
   @Test
   void deshacerPropuestaQuitaLaPrendaDelGuardarropa() {
-   propuesta.deshacerPropuesta();
-   verify(guardarropa).quitarPrenda(prenda);
+    propuesta.deshacerPropuesta();
+    verify(guardarropa).quitarPrenda(prenda);
   }
 }

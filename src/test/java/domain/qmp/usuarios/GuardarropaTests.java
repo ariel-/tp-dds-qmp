@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
 import domain.qmp.atuendos.GeneradorAtuendos;
-import domain.services.ServicioClima;
+import domain.servicios.clima.interfaces.ServicioClima;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

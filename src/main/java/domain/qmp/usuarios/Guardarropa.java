@@ -3,8 +3,8 @@ package domain.qmp.usuarios;
 import domain.qmp.atuendos.Atuendo;
 import domain.qmp.atuendos.GeneradorAtuendos;
 import domain.qmp.prendas.Prenda;
-import domain.services.ServicioClima;
-import java.math.BigDecimal;
+import domain.servicios.clima.interfaces.ServicioClima;
+import domain.servicios.clima.objetos.EstadoClima;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
@@ -16,8 +16,7 @@ public class Guardarropa {
   private final ServicioClima servicioClima;
   private final Set<Prenda> prendas = new HashSet<>();
 
-  public Guardarropa(String nombre, GeneradorAtuendos generador,
-                     ServicioClima servicioClima) {
+  public Guardarropa(String nombre, GeneradorAtuendos generador, ServicioClima servicioClima) {
     this.nombre = nombre;
     this.generador = generador;
     this.servicioClima = servicioClima;
@@ -36,13 +35,13 @@ public class Guardarropa {
   }
 
   public Atuendo sugerirAtuendo(String ciudad, LocalDateTime now) {
-    BigDecimal temperatura = servicioClima.temperatura(ciudad, now);
-    return obtenerAtuendoSegunTemperatura(temperatura);
+    EstadoClima estadoClimatico = servicioClima.estadoClimatico(ciudad, now);
+    return obtenerAtuendoSegunCondiciones(estadoClimatico);
   }
 
-  private Atuendo obtenerAtuendoSegunTemperatura(BigDecimal temperatura) {
+  private Atuendo obtenerAtuendoSegunCondiciones(EstadoClima estadoClima) {
     return generador.generarAtuendoDesde(
-        prendas.stream().filter(prenda -> prenda.aptaParaTemperatura(temperatura)).collect(
-            Collectors.toList()));
+        prendas.stream().filter(prenda -> prenda.aptaParaClima(estadoClima))
+               .collect(Collectors.toList()));
   }
 }

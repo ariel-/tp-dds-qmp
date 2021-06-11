@@ -3,6 +3,7 @@ package domain.qmp.usuarios;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verifyNoInteractions;
 
+import domain.servicios.clima.interfaces.ServicioClima;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ public class PersonaTests {
 
   @BeforeEach
   void initFixture() {
-    persona = new Persona();
+    persona = new Persona(mock(ServicioClima.class));
     guardarropa = mock(Guardarropa.class);
   }
 

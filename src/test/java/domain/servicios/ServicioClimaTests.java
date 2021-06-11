@@ -1,4 +1,4 @@
-package domain.services;
+package domain.servicios;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
@@ -6,6 +6,8 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import domain.servicios.clima.interfaces.ServicioClima;
+import domain.servicios.clima.objetos.EstadoClima;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,12 +19,13 @@ public class ServicioClimaTests {
   @BeforeEach
   void init() {
     servicioClima = mock(ServicioClima.class);
-    when(servicioClima.temperatura(eq("Buenos Aires"), any())).thenReturn(new BigDecimal("20"));
+    when(servicioClima.estadoClimatico(eq("Buenos Aires"), any()))
+        .thenReturn(new EstadoClima(new BigDecimal("20"), null));
   }
 
   @Test
   void unServicioDevuelveLaTemperatura() {
-    BigDecimal temp = servicioClima.temperatura("Buenos Aires", LocalDateTime.now());
-    assertEquals(0, temp.compareTo(BigDecimal.valueOf(20)));
+    EstadoClima estadoClima = servicioClima.estadoClimatico("Buenos Aires", LocalDateTime.now());
+    assertEquals(0, estadoClima.getTemperatura().compareTo(BigDecimal.valueOf(20)));
   }
 }

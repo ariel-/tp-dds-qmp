@@ -17,29 +17,27 @@ public class BorradorTests {
   @Test
   void unBorradorDebeTenerUnTipo() {
     assertThrows(PrendaInvalidaException.class, unBorrador::crearPrenda,
-                 "El tipo no puede ser nulo.");
+        "El tipo no puede ser nulo.");
   }
 
   @Test
   void unBorradorDebeTenerUnMaterial() {
     unBorrador.setTipo(Tipo.REMERA);
     assertThrows(PrendaInvalidaException.class, unBorrador::crearPrenda,
-                 "La prenda debe tener un material");
+        "La prenda debe tener un material");
   }
 
   @Test
   void elTipoyElMaterialDebenSerConsistentes() {
-    unBorrador.setTipo(Tipo.REMERA)
-              .setMaterial(Material.JEAN);
+    unBorrador.setTipo(Tipo.REMERA).setMaterial(Material.JEAN);
     assertThrows(PrendaInvalidaException.class, unBorrador::crearPrenda,
-                 "El material no es admitido por el tipo de prenda");
+        "El material no es admitido por el tipo de prenda");
   }
 
   @Test
   void unBorradorDebeTenerUnColor() {
-    unBorrador.setTipo(Tipo.REMERA)
-              .setMaterial(Material.ALGODON);
+    unBorrador.setTipo(Tipo.REMERA).setMaterial(Material.ALGODON);
     assertThrows(PrendaInvalidaException.class, unBorrador::crearPrenda,
-                 "La prenda debe tener un color primario");
+        "La prenda debe tener un color primario");
   }
 }

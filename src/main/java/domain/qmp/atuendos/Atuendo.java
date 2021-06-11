@@ -36,7 +36,7 @@ public class Atuendo {
   }
 
   private void validarAtuendo(Prenda parteSuperior, Prenda parteInferior, Prenda calzado,
-                              Prenda accesorio) {
+      Prenda accesorio) {
     validarCategoria(Categoria.SUPERIOR, parteSuperior);
     validarCategoria(Categoria.INFERIOR, parteInferior);
     validarCategoria(Categoria.CALZADO, calzado);
