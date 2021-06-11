@@ -3,14 +3,7 @@ left to right direction
 skinparam backgroundColor transparent
 skinparam arrowFontColor royalblue
 
-together {
-    class Prenda {
-        colorPrimario : Color
-        colorSecundario : Color
-        temperaturaMaxima
-        categoria() : Categoria
-    }
-
+package "Prendas" #lightgray|FF71CE {
     enum Trama {
         LISA,
         RAYADA,
@@ -43,6 +36,25 @@ together {
         ACCESORIO
     }
 
+    class Prenda {
+        colorPrimario : Color
+        colorSecundario : Color
+        temperaturaMaxima
+        categoria() : Categoria
+        aptaParaClima(EstadoClima) : boolean
+    }
+
+    class Borrador {
+        trama
+        material
+        tipo
+        colorPrimario
+        colorSecundario
+        temperaturaMaxima
+
+        crearPrenda() : Prenda
+    }
+
     Prenda --> "1" Material
     Prenda --> "1" Trama
     Prenda --> "1" Tipo
@@ -51,90 +63,85 @@ together {
 
     Tipo --> "1" Categoria
     Tipo --> "*" Material
+
+    Borrador ..> Prenda
 }
 
-class Borrador {
-    trama
-    material
-    tipo
-    colorPrimario
-    colorSecundario
-    temperaturaMaxima
+package "Atuendos" #FFFB96\lightgray {
+    interface GeneradorAtuendos {
+        generarAtuendoDesde(List<Prenda>) : Atuendo
+    }
 
-    crearPrenda() : Prenda
+    class Atuendo {
+    }
+
+    Atuendo --> "1" Prenda : parteSuperior
+    Atuendo --> "1" Prenda : parteInferior
+    Atuendo --> "1" Prenda : calzado
+    Atuendo --> "1" Prenda : accesorio
+
+    GeneradorAtuendos ..> Prenda
+    GeneradorAtuendos ..> Atuendo
 }
 
-interface GeneradorAtuendos {
-    generarAtuendoDesde(List<Prenda>) : Atuendo
+package "Clima" #FFFB96/01CDFE {
+    enum AlertaMeteorologico {
+        TORMENTA,
+        GRANIZO,
+        ...
+    }
+
+    class EstadoClima {
+        temperatura
+        alertas
+    }
+
+    interface ServicioClima {
+        estadoClimatico(ciudad, now) : EstadoClima
+    }
+
+    EstadoClima --> "*" AlertaMeteorologico
+
+    ServicioClima ..> EstadoClima
 }
 
-class Atuendo {
+package "EndUser" #FCAA58|FFFB96 {
+    class Persona {
+        guardarropas : Set<Guardarropa>
+        propuestas : Set<Propuesta>
+
+        agregarGuardarropa()
+        quitarGuardarropa()
+        getPropuestasPendientes() : List<Propuesta>
+        aceptarPropuesta(Propuesta)
+        rechazarPropuesta(Propuesta)
+    }
+
+    ' Command pattern :)
+    abstract class Propuesta {
+        aplicada : boolean
+
+        {abstract} apply()
+        {abstract} undo()
+        aceptarPropuesta()
+        deshacerPropuesta()
+        estaPendiente()
+    }
+
+    class Guardarropa {
+        nombre : String
+        prendas : List<Prenda>
+
+        agregarPrenda(Prenda)
+        sugerirAtuendo() : Atuendo
+    }
+
+    Guardarropa --> GeneradorAtuendos
+    Guardarropa --> ServicioClima
+    Guardarropa --> "*" Prenda
+    Guardarropa ..> Atuendo
+
+    Persona --> "*" Propuesta
+    Persona --> "*" Guardarropa
 }
-
-enum AlertaMeteorologico {
-    TORMENTA,
-    GRANIZO,
-    ...
-}
-
-class EstadoClima {
-    temperatura
-    alertas
-}
-
-interface ServicioClima {
-    estadoClimatico(ciudad, now) : EstadoClima
-}
-
-Borrador ..> Prenda
-
-Atuendo --> "1" Prenda : parteSuperior
-Atuendo --> "1" Prenda : parteInferior
-Atuendo --> "1" Prenda : calzado
-Atuendo --> "1" Prenda : accesorio
-
-GeneradorAtuendos ..> Prenda
-GeneradorAtuendos ..> Atuendo
-
-EstadoClima --> "*" AlertaMeteorologico
-
-ServicioClima ..> EstadoClima
-
-class Persona {
-    guardarropas : Set<Guardarropa>
-    propuestas : Set<Propuesta>
-
-    agregarGuardarropa()
-    quitarGuardarropa()
-    getPropuestasPendientes() : List<Propuesta>
-    aceptarPropuesta(Propuesta)
-    rechazarPropuesta(Propuesta)
-}
-
-' Command pattern :)
-abstract class Propuesta {
-    aplicada : boolean
-
-    {abstract} apply()
-    {abstract} undo()
-    aceptarPropuesta()
-    deshacerPropuesta()
-    estaPendiente()
-}
-
-class Guardarropa {
-    nombre : String
-    prendas : List<Prenda>
-
-    agregarPrenda(Prenda)
-    sugerirAtuendo() : Atuendo
-}
-
-Guardarropa --> GeneradorAtuendos
-Guardarropa --> ServicioClima
-Guardarropa --> "*" Prenda
-Guardarropa ..> Atuendo
-
-Persona --> "*" Propuesta
-Persona --> "*" Guardarropa
 @enduml
