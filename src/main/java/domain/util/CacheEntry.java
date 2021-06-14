@@ -11,10 +11,14 @@ public class CacheEntry<ResultadoType> {
     this.expiration = expiration;
   }
 
+  public boolean entradaValida(LocalDateTime now) {
+    // es valida <=> la expiración está en el futuro
+    return now.isBefore(expiration);
+  }
+
   public boolean expiro(LocalDateTime now) {
-    // no antes de = ahora o luego
-    // es decir si mi fecha de expiración es despues o igual a ahora, ya expiré
-    return !now.isBefore(expiration);
+    // expiro <=> no es válida
+    return !entradaValida(now);
   }
 
   public ResultadoType get() {
