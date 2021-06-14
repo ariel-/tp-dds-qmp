@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -94,6 +95,12 @@ public class ServicioClimaAccuWeather implements ServicioClima {
     List<String> resultadoAlertas = resultadoApi.get("CurrentAlerts");
     return resultadoAlertas.stream().map(ServicioClimaAccuWeather::convertirAlerta)
                            .collect(Collectors.toList());
+  }
+
+  @Override
+  public Collection<AlertaMeteorologico> obtenerAlertas(String ciudad, LocalDateTime now) {
+    EstadoClima estadoActual = cacheEstadoClimatico.update(ciudad, now);
+    return estadoActual.getAlertas();
   }
 
   @Override
