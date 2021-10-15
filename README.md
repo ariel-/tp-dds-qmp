@@ -19,6 +19,8 @@
 
 ## API REST
 
+### El usuario se toma de la sesión!
+
 - Como usuarie de QueMePongo quiero ver todas las prendas que tengo en mi guardarropa desde el navegador para poder administrarlas
   * URI + Método: GET `/prendas`
   * Body: vacío
